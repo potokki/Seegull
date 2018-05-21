@@ -10,7 +10,7 @@ namespace PVPAssister.Mingwen
         {
             if (!int.TryParse(dependencyRateString, out int dependencyRate))
             {
-                dependencyRate = 1;
+                dependencyRate = 0;
             }
             Elements[attributeName] = dependencyRate;
         }
@@ -19,7 +19,7 @@ namespace PVPAssister.Mingwen
         {
             if (!Elements.TryGetValue(attibuteName, out int rate))
             {
-                rate = 1;
+                rate = 0;
             }
             return rate;
         }

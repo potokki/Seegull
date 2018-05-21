@@ -8,6 +8,9 @@ namespace PVPAssister.Mingwen
 {
     public class MingwenLevelOverall
     {
+        private const int ScoreMin = 9;
+        private const int ScoreAdvanced = 12;
+        private const double ScoreDiff = 0.5;
         public int Level;
         public Dictionary<string, MingwenInfo> Elements =
             new Dictionary<string, MingwenInfo>();
@@ -95,11 +98,19 @@ namespace PVPAssister.Mingwen
             }
 
             var orderedMingwens = currentColorMingwens.OrderByDescending(m => m.Score).ToList();
-            var first = orderedMingwens[0].Clone();
-            mingwens.Add(first);
-            var second = orderedMingwens[1].Clone();
-            if (second.Score > 10 && first.Score - second.Score < 1)
-                mingwens.Add(second);
+            MingwenInfo first = null;
+            foreach (var mingwen in orderedMingwens)
+            {
+                if (null == first && mingwen.Score > ScoreMin ||
+                    null != first && (mingwen.Score > ScoreAdvanced ||
+                        mingwen.Score > ScoreMin && first.Score - mingwen.Score < ScoreDiff))
+                {
+                    var current = mingwen.Clone();
+                    mingwens.Add(current);
+                    if (null == first)
+                        first = current;
+                }
+            }
             return mingwens;
         }
     }

@@ -38,7 +38,7 @@ namespace PVPAssister
             }
 
             File.WriteAllText(OutputFileName, sb.ToString(), Encoding.UTF8);
-            Process.Start(OutputFileName);
+            //Process.Start(OutputFileName);
         }
 
 

@@ -29,6 +29,7 @@ namespace PVPAssister.Yingxiong
         private void Add(List<string> titles, List<string> values)
         {
             string yingxiongName = values[0];
+            if (string.IsNullOrEmpty(yingxiongName)) return;
             if (Yingxiongs.ContainsKey(yingxiongName))
                 throw new ArgumentException($"Duplicated {yingxiongName}");
             var info = new YingxiongInfo { Name = yingxiongName };
