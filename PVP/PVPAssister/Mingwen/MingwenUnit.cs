@@ -15,15 +15,19 @@ namespace PVPAssister.Mingwen
         public override string ToString()
         {
             string str = string.Empty;
-            //str += string.Join("|", Elements[MingwenColor.蓝色].Select(m => m.Name + m.Score)) + ",";
-            //str += string.Join("|", Elements[MingwenColor.绿色].Select(m => m.Name + m.Score)) + ",";
-            //str += string.Join("|", Elements[MingwenColor.红色].Select(m => m.Name + m.Score));
             str += string.Join("|", Elements[MingwenColor.蓝色].Select(m => m.Name)) + ",";
             str += string.Join("|", Elements[MingwenColor.绿色].Select(m => m.Name)) + ",";
             str += string.Join("|", Elements[MingwenColor.红色].Select(m => m.Name));
-
             return str;
         }
 
+        public string ToDetailedString()
+        {
+            string str = string.Empty;
+            str += string.Join("|", Elements[MingwenColor.蓝色].Select(m => m.Name + m.Score.ToString("N1"))) + ",";
+            str += string.Join("|", Elements[MingwenColor.绿色].Select(m => m.Name + m.Score.ToString("N1"))) + ",";
+            str += string.Join("|", Elements[MingwenColor.红色].Select(m => m.Name + m.Score.ToString("N1")));
+            return str;
+        }
     }
 }

@@ -9,8 +9,9 @@ namespace PVPAssister.Mingwen
     public class MingwenLevelOverall
     {
         private const int ScoreMin = 9;
+        private const int ScoreMid = 10;
         private const int ScoreAdvanced = 12;
-        private const double ScoreDiff = 0.5;
+        private const double ScoreDiff = 0.4;
         public int Level;
         public Dictionary<string, MingwenInfo> Elements =
             new Dictionary<string, MingwenInfo>();
@@ -103,7 +104,7 @@ namespace PVPAssister.Mingwen
             {
                 if (null == first && mingwen.Score > ScoreMin ||
                     null != first && (mingwen.Score > ScoreAdvanced ||
-                        mingwen.Score > ScoreMin && first.Score - mingwen.Score < ScoreDiff))
+                        mingwen.Score > ScoreMid && first.Score - mingwen.Score < ScoreDiff))
                 {
                     var current = mingwen.Clone();
                     mingwens.Add(current);

@@ -14,7 +14,7 @@ namespace PVPAssister
 
         //private static readonly string OutputFileName =
         //    $"Result_{DateTime.Now.ToShortDateString().Replace("/", "_").Replace(" ", "")}.csv";
-        private const string OutputTitle = "Yingxiong,4-B,4-G,4-R,5-B,5-G,5-R";
+        private const string OutputTitle = "Yingxiong,4-B,4-G,4-R,5-B,5-G,5-R,D4-B,D4-G,D4-R,D5-B,D5-G,D5-R";
         private MingwenOverall _mingwen = new MingwenOverall();
         private YingxiongOverall _yingxiong = new YingxiongOverall();
 
