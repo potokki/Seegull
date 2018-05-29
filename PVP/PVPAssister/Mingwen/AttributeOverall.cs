@@ -5,6 +5,7 @@ namespace PVPAssister.Mingwen
 {
     public class AttributeOverall
     {
+        private const double RatePower = 0.25;
         public Dictionary<string, Attribute> Elements = new Dictionary<string, Attribute>();
 
         public Attribute Add(string attributeName, string valueString)
@@ -37,6 +38,7 @@ namespace PVPAssister.Mingwen
             if (Elements.TryGetValue(attribute.Name, out Attribute overallAttribute))
             {
                 attribute.Percentage = attribute.Value / overallAttribute.MaxValue;
+                attribute.Rate = Math.Pow(attribute.Percentage, RatePower) * attribute.Percentage;
             }
             else
             {

@@ -5,6 +5,7 @@
         public string Name;
         public double Value;
         public double Percentage;
+        public double Rate;
         public double MaxValue;
     }
 }

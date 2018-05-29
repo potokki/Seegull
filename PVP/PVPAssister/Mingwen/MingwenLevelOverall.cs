@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
 using PVPAssister.CSV;
 
 namespace PVPAssister.Mingwen
@@ -94,7 +93,7 @@ namespace PVPAssister.Mingwen
                 foreach (var attibute in mingwen.Attributes)
                 {
                     int rate = attributeDependency.GetDependencyRate(attibute.Name);
-                    mingwen.Score += rate * attibute.Percentage;
+                    mingwen.Score += rate * attibute.Rate;
                 }
             }
 
