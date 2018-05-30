@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using PVPAssister.CSV;
 
 namespace PVPAssister.Mingwen
 {
@@ -33,7 +34,7 @@ namespace PVPAssister.Mingwen
             return attribute;
         }
 
-        public void UpdatePercentage(Attribute attribute)
+        public void UpdatePercentageAndRate(Attribute attribute)
         {
             if (Elements.TryGetValue(attribute.Name, out Attribute overallAttribute))
             {
@@ -45,5 +46,6 @@ namespace PVPAssister.Mingwen
                 throw new ArgumentOutOfRangeException(attribute.Name);
             }
         }
+
     }
 }

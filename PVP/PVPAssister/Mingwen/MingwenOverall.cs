@@ -14,6 +14,5 @@ namespace PVPAssister.Mingwen
             Levles[4] = new MingwenLevelOverall(Level4FileName, 4);
             Levles[5] = new MingwenLevelOverall(Level5FileName, 5);
         }
-
     }
 }

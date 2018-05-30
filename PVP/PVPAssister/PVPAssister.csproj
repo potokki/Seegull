@@ -44,10 +44,11 @@
   <ItemGroup>
     <Compile Include="Computer.cs" />
     <Compile Include="CSV\CsvHandler.cs" />
-    <Compile Include="Mingwen\Attribute.cs" />
-    <Compile Include="Mingwen\AttributeOverall.cs" />
+    <Compile Include="Attribute\AttibuteSummary.cs" />
+    <Compile Include="Attribute\Attribute.cs" />
+    <Compile Include="Attribute\AttributeOverall.cs" />
     <Compile Include="Mingwen\MingwenColor.cs" />
-    <Compile Include="Mingwen\AttributeDependency.cs" />
+    <Compile Include="Attribute\AttributeDependency.cs" />
     <Compile Include="Mingwen\MingwenInfo.cs" />
     <Compile Include="Mingwen\MingwenLevelOverall.cs" />
     <Compile Include="Mingwen\MingwenOverall.cs" />
@@ -60,6 +61,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Attribute\AttributeSummaryName.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Mingwen\MingwenLevel4.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -7,11 +7,12 @@ namespace PVPAssister.Mingwen
 {
     public class MingwenLevelOverall
     {
-        private const int ScoreMin = 9;
+        private const double ScoreMin = 8.5;
         private const int ScoreMid = 10;
         private const int ScoreAdvanced = 12;
         private const double ScoreDiff = 0.4;
         public int Level;
+
         public Dictionary<string, MingwenInfo> Elements =
             new Dictionary<string, MingwenInfo>();
 
@@ -34,7 +35,7 @@ namespace PVPAssister.Mingwen
             foreach (var mingwen in Elements.Values)
             {
                 foreach (var attribute in mingwen.Attributes)
-                    Attributes.UpdatePercentage(attribute);
+                    Attributes.UpdatePercentageAndRate(attribute);
             }
         }
 
@@ -48,9 +49,10 @@ namespace PVPAssister.Mingwen
             return unit;
         }
 
-        private void Add(int mingwenLevel,
-            List<string> titles,
-            List<string> values)
+        private void Add(
+            int mingwenLevel,
+            IReadOnlyList<string> titles,
+            IReadOnlyList<string> values)
         {
             var mingwenInfo = new MingwenInfo { Level = mingwenLevel };
             for (int i = 0; i < values.Count && i < titles.Count; i++)
@@ -63,7 +65,7 @@ namespace PVPAssister.Mingwen
                 if (color == MingwenColor.Unknown)
                 {
                     var attribute = Attributes.Add(title, valueString);
-                    mingwenInfo.Attributes.Add(attribute);
+                    mingwenInfo.AddAttribute(attribute);
                 }
                 else
                 {
@@ -89,12 +91,7 @@ namespace PVPAssister.Mingwen
             var currentColorMingwens = Elements.Values.Where(m => color == m.Color).ToList();
             foreach (var mingwen in currentColorMingwens)
             {
-                mingwen.Score = 0;
-                foreach (var attibute in mingwen.Attributes)
-                {
-                    int rate = attributeDependency.GetDependencyRate(attibute.Name);
-                    mingwen.Score += rate * attibute.Rate;
-                }
+                mingwen.UpdateScore(attributeDependency);
             }
 
             var orderedMingwens = currentColorMingwens.OrderByDescending(m => m.Score).ToList();

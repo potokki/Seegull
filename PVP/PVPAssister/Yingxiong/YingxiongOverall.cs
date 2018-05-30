@@ -23,7 +23,6 @@ namespace PVPAssister.Yingxiong
                 }
                 Add(titles, row);
             }
-
         }
 
         private void Add(List<string> titles, List<string> values)
