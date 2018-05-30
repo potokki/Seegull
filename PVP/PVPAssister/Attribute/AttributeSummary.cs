@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PVPAssister.CSV;
 
 namespace PVPAssister.Mingwen
@@ -45,7 +43,9 @@ namespace PVPAssister.Mingwen
             for (int i = 0; i < 5; i++)
             {
                 if (Map.TryGetValue(temp, out summary))
-                { return summary; }
+                {
+                    return summary;
+                }
                 else
                 {
                     summary = TryGet(temp);
@@ -108,7 +108,8 @@ namespace PVPAssister.Mingwen
                             {
                                 offsetOfDimensions[k]++;
                                 if (indexes.Count == k + 1) indexes.RemoveAt(k);
-                                else if (indexes.Count > k) throw new Exception($"indexes.Count {indexes.Count} shall not greater than {k}");
+                                else if (indexes.Count > k)
+                                    throw new Exception($"indexes.Count {indexes.Count} shall not greater than {k}");
                             }
                             else
                             {

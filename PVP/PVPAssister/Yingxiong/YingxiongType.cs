@@ -2,7 +2,5 @@
 
 namespace PVPAssister.Yingxiong
 {
-    public class YingxiongType
-    {
-    }
+    public class YingxiongType { }
 }

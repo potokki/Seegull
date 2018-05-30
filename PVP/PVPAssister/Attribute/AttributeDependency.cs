@@ -35,6 +35,5 @@ namespace PVPAssister.Mingwen
             summary = AttibuteSummary.Get(summary);
             return summary;
         }
-
     }
 }

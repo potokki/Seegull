@@ -11,6 +11,7 @@ namespace PVPAssister.Mingwen
                 {MingwenColor.绿色, new List<MingwenInfo>()},
                 {MingwenColor.红色, new List<MingwenInfo>()},
             };
+
         public string Summary => GetSummary();
 
         public override string ToString()
@@ -56,6 +57,5 @@ namespace PVPAssister.Mingwen
             string summarySum = string.Join("|", summaries);
             return summarySum;
         }
-
     }
 }

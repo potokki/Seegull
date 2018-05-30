@@ -25,10 +25,7 @@ namespace PVPAssister.Mingwen
             return cloned;
         }
 
-        public void AddAttribute(Attribute attribute)
-        {
-            Attributes.Add(attribute);
-        }
+        public void AddAttribute(Attribute attribute) { Attributes.Add(attribute); }
 
         public void UpdateScore(AttributeDependency attributeDependency)
         {

@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="Computer.cs" />
     <Compile Include="CSV\CsvHandler.cs" />
-    <Compile Include="Attribute\AttibuteSummary.cs" />
+    <Compile Include="Attribute\AttributeSummary.cs" />
     <Compile Include="Attribute\Attribute.cs" />
     <Compile Include="Attribute\AttributeOverall.cs" />
     <Compile Include="Mingwen\MingwenColor.cs" />

@@ -46,6 +46,5 @@ namespace PVPAssister.Mingwen
                 throw new ArgumentOutOfRangeException(attribute.Name);
             }
         }
-
     }
 }
