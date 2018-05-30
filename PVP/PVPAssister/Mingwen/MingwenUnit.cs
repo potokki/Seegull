@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace PVPAssister.Mingwen
 {
     public class MingwenUnit
     {
+        public int Level { get; }
+
         public Dictionary<MingwenColor, List<MingwenInfo>> Elements = new Dictionary<MingwenColor, List<MingwenInfo>>()
             {
                 {MingwenColor.蓝色, new List<MingwenInfo>()},
@@ -13,6 +17,8 @@ namespace PVPAssister.Mingwen
             };
 
         public string Summary => GetSummary();
+
+        public MingwenUnit(int level) { Level = level; }
 
         public override string ToString()
         {

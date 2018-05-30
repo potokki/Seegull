@@ -41,7 +41,7 @@ namespace PVPAssister.Mingwen
 
         public MingwenUnit SuggestedMingwenUnit(AttributeDependency attributeDependency)
         {
-            MingwenUnit unit = new MingwenUnit();
+            MingwenUnit unit = new MingwenUnit(Level);
             foreach (var color in unit.Elements.Keys)
             {
                 unit.Elements[color].AddRange(SuggestedMingwens(color, attributeDependency));

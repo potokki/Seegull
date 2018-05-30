@@ -16,7 +16,7 @@ namespace PVPAssister.Mingwen
             foreach (var row in contents)
             {
                 if (row.Count == 2)
-                    Add(row[0], row[1]);
+                    Add(row[0], row[1], false);
             }
             var existingCombinations = Map.Keys.ToList();
             foreach (var existingCombination in existingCombinations)
@@ -25,11 +25,11 @@ namespace PVPAssister.Mingwen
             }
         }
 
-        public static void Add(string original, string summary)
+        public static void Add(string original, string summary, bool overwrite = true)
         {
             if (string.IsNullOrEmpty(original))
                 return;
-            if (Map.ContainsKey(original))
+            if (!overwrite && Map.ContainsKey(original))
                 throw new ArgumentOutOfRangeException($"Duplicated attribute {original} in AttibuteSummary");
             Map[original] = summary;
         }
@@ -40,7 +40,7 @@ namespace PVPAssister.Mingwen
 
             string summary = original;
             string temp = original;
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 6; i++)
             {
                 if (Map.TryGetValue(temp, out summary))
                 {
@@ -54,8 +54,8 @@ namespace PVPAssister.Mingwen
                 }
             }
             summary = Sort(summary);
-            if (original != summary)
-                Map[original] = summary;
+            //if (original != summary)
+            //    Add(original, summary);
             return summary;
         }
 
@@ -68,10 +68,11 @@ namespace PVPAssister.Mingwen
             for (int i = 0; i < combination.Length - 1; i += 2)
             {
                 string item = combination.Substring(i, 2);
-                Map[existingSummary + item] = existingSummary;
+                Add(existingSummary + item, existingSummary);
+                Add(item + existingSummary, existingSummary);
                 reversedCombination = item + reversedCombination;
             }
-            Map[reversedCombination] = existingSummary;
+            Add(reversedCombination, existingSummary);
         }
 
         private static string TryGet(string combination)
@@ -169,5 +170,6 @@ namespace PVPAssister.Mingwen
             string orderedSummary = string.Join("", items);
             return orderedSummary;
         }
+
     }
 }

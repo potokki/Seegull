@@ -46,5 +46,11 @@ namespace PVPAssister.Mingwen
             summary = AttibuteSummary.Get(summary);
             return summary;
         }
+
+        public override string ToString()
+        {
+            string val = $"{Name}-{Level}-{Color}-{Summary}";
+            return val;
+        }
     }
 }
