@@ -7,10 +7,12 @@ namespace PVPAssister.Mingwen
 {
     public class MingwenLevelOverall
     {
-        private const double ScoreMin = 8.5;
-        private const int ScoreMid = 10;
-        private const int ScoreAdvanced = 12;
-        private const double ScoreDiff = 0.4;
+        private const double ScoreMin = 9.8;
+        private const int ScoreMid = 11;
+        private const int ScoreAdvanced = 14;
+        private const double ScoreDiffLess = 0.2;
+        private const double ScoreDiffMore = 0.4;
+        private const int MaxMingwenPerUnit = 2;
         public int Level;
 
         public Dictionary<string, MingwenInfo> Elements =
@@ -98,9 +100,11 @@ namespace PVPAssister.Mingwen
             MingwenInfo first = null;
             foreach (var mingwen in orderedMingwens)
             {
-                if (null == first && mingwen.Score > ScoreMin ||
+                if (mingwens.Count < MaxMingwenPerUnit &&
+                    (null == first && mingwen.Score > ScoreMin ||
                     null != first && (mingwen.Score > ScoreAdvanced ||
-                        mingwen.Score > ScoreMid && first.Score - mingwen.Score < ScoreDiff))
+                        mingwen.Score > ScoreMin && first.Score - mingwen.Score < ScoreDiffLess ||
+                        mingwen.Score > ScoreMid && first.Score - mingwen.Score < ScoreDiffMore)))
                 {
                     var current = mingwen.Clone();
                     mingwens.Add(current);

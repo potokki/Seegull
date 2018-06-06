@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net.Configuration;
 
 namespace PVPAssister.Mingwen
 {
@@ -11,6 +12,8 @@ namespace PVPAssister.Mingwen
         public List<Attribute> Attributes { get; private set; } = new List<Attribute>();
         public string Summary => GetSummary();
         public double Score { get; private set; }
+
+        private const int RateNormalMax = 10;
 
         public MingwenInfo Clone()
         {
@@ -30,10 +33,28 @@ namespace PVPAssister.Mingwen
         public void UpdateScore(AttributeDependency attributeDependency)
         {
             Score = 0;
+            int attibuteCount = 0;
+            bool preferSingleAttribute = false;
             foreach (var attibute in Attributes)
             {
                 int rate = attributeDependency.GetDependencyRate(attibute.Name);
                 Score += rate * attibute.Rate;
+                preferSingleAttribute = rate > RateNormalMax;
+                attibuteCount++;
+            }
+            if (Score > 0)
+            {
+                if (attibuteCount == 1)
+                {
+                    if (preferSingleAttribute) Score *= 1.3;
+                }
+                else
+                {
+                    double multipleAttibuteRateBase = 1 + 0.7 * (attibuteCount - 1) / attibuteCount;
+                    double multipleAttibuteRate =
+                        multipleAttibuteRateBase * (1 - (multipleAttibuteRateBase - 1) / 1.8);
+                    if (multipleAttibuteRate > 1) Score *= multipleAttibuteRate;
+                }
             }
         }
 
