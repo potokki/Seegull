@@ -25,7 +25,7 @@ namespace PVPAssister.Yingxiong
         public override string ToString()
         {
             string str =
-                $"{Name},{Mingwens[4]},{Mingwens[5]},{Mingwens[4].ToDetailedString()},{Mingwens[5].ToDetailedString()},{MingwensBySystem[4]},{MingwensBySystem[5]}";
+                $"{Name},{Mingwens[4].ToDetailedString()},{Mingwens[5].ToDetailedString()},{Mingwens[4]},{Mingwens[5]},{MingwensBySystem[4].ToDetailedString()},{MingwensBySystem[5].ToDetailedString()}";
 
             return str;
         }
