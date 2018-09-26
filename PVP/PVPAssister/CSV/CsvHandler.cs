@@ -8,22 +8,24 @@ namespace PVPAssister.CSV
     {
         public static List<List<string>> Read(string fileName)
         {
-            List<List<string>> contents = new List<List<string>>();
+            var contents = new List<List<string>>();
             foreach (var line in File.ReadAllLines(fileName))
             {
                 var row = new List<string>(line.Split(','));
                 contents.Add(row);
             }
+
             return contents;
         }
 
         public static void Write(string fileName, List<List<string>> contents)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             foreach (var row in contents)
             {
                 sb.AppendLine(string.Join(",", row));
             }
+
             File.WriteAllText(fileName, sb.ToString());
         }
     }

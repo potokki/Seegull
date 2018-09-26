@@ -2,7 +2,7 @@
 
 namespace PVPAssister.Mingwen.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class MingwenUnitTests
     {
         [TestMethod]

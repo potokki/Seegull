@@ -8,7 +8,7 @@ namespace PVPAssister.Mingwen
     {
         public int Level { get; }
 
-        public Dictionary<MingwenColor, List<MingwenInfo>> Elements = new Dictionary<MingwenColor, List<MingwenInfo>>()
+        public Dictionary<MingwenColor, List<MingwenInfo>> Elements = new Dictionary<MingwenColor, List<MingwenInfo>>
             {
                 {MingwenColor.蓝色, new List<MingwenInfo>()},
                 {MingwenColor.绿色, new List<MingwenInfo>()},
@@ -56,9 +56,11 @@ namespace PVPAssister.Mingwen
                         summary += e.Value[0].Summary;
                     }
                 }
+
                 if (hasItemForI) summaries.Add(AttibuteSummary.Get(summary));
                 else break;
             }
+
             var summarySum = string.Join("|", summaries);
             return summarySum;
         }
@@ -72,7 +74,8 @@ namespace PVPAssister.Mingwen
             return diff;
         }
 
-        private int ComparePerColor(MingwenColor color, MingwenUnit current, MingwenUnit other) => ComparePerColor(current.Elements[color], other.Elements[color]);
+        private int ComparePerColor(MingwenColor color, MingwenUnit current, MingwenUnit other) =>
+            ComparePerColor(current.Elements[color], other.Elements[color]);
 
         public int ComparePerColor(IList<MingwenInfo> mingwen1, IList<MingwenInfo> mingwen2)
         {
@@ -97,7 +100,7 @@ namespace PVPAssister.Mingwen
                 if (j >= 0)
                 {
                     existedIn2 = true;
-                    diff += i  * 5 + j * 2;
+                    diff += i * 5 + j * 2;
                 }
 
                 i++;

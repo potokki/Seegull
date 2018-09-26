@@ -32,8 +32,10 @@ namespace PVPAssister.Mingwen
                     titles = row;
                     continue;
                 }
+
                 Add(mingwenLevel, titles, row);
             }
+
             foreach (var mingwen in Elements.Values)
             {
                 foreach (var attribute in mingwen.Attributes)
@@ -43,11 +45,12 @@ namespace PVPAssister.Mingwen
 
         public MingwenUnit SuggestedMingwenUnit(AttributeDependency attributeDependency)
         {
-            MingwenUnit unit = new MingwenUnit(Level);
+            var unit = new MingwenUnit(Level);
             foreach (var color in unit.Elements.Keys)
             {
                 unit.Elements[color].AddRange(SuggestedMingwens(color, attributeDependency));
             }
+
             return unit;
         }
 
@@ -56,13 +59,13 @@ namespace PVPAssister.Mingwen
             IReadOnlyList<string> titles,
             IReadOnlyList<string> values)
         {
-            var mingwenInfo = new MingwenInfo { Level = mingwenLevel };
-            for (int i = 0; i < values.Count && i < titles.Count; i++)
+            var mingwenInfo = new MingwenInfo {Level = mingwenLevel};
+            for (var i = 0; i < values.Count && i < titles.Count; i++)
             {
-                string title = titles[i];
+                var title = titles[i];
                 if (string.IsNullOrEmpty(title)) continue;
                 var color = GetMingwenColor(title);
-                string valueString = values[i];
+                var valueString = values[i];
                 if (string.IsNullOrEmpty(valueString)) continue;
                 if (color == MingwenColor.Unknown)
                 {
@@ -75,6 +78,7 @@ namespace PVPAssister.Mingwen
                     mingwenInfo.Color = color;
                 }
             }
+
             Elements[mingwenInfo.Name] = mingwenInfo;
         }
 
@@ -84,12 +88,13 @@ namespace PVPAssister.Mingwen
             {
                 color = MingwenColor.Unknown;
             }
+
             return color;
         }
 
         private List<MingwenInfo> SuggestedMingwens(MingwenColor color, AttributeDependency attributeDependency)
         {
-            List<MingwenInfo> mingwens = new List<MingwenInfo>();
+            var mingwens = new List<MingwenInfo>();
             var currentColorMingwens = Elements.Values.Where(m => color == m.Color).ToList();
             foreach (var mingwen in currentColorMingwens)
             {
@@ -102,9 +107,9 @@ namespace PVPAssister.Mingwen
             {
                 if (mingwens.Count < MaxMingwenPerUnit &&
                     (null == first && mingwen.Score > ScoreMin ||
-                    null != first && (mingwen.Score > ScoreAdvanced ||
-                        mingwen.Score > ScoreMin && first.Score - mingwen.Score < ScoreDiffLess ||
-                        mingwen.Score > ScoreMid && first.Score - mingwen.Score < ScoreDiffMore)))
+                        null != first && (mingwen.Score > ScoreAdvanced ||
+                            mingwen.Score > ScoreMin && first.Score - mingwen.Score < ScoreDiffLess ||
+                            mingwen.Score > ScoreMid && first.Score - mingwen.Score < ScoreDiffMore)))
                 {
                     var current = mingwen.Clone();
                     mingwens.Add(current);
@@ -112,6 +117,7 @@ namespace PVPAssister.Mingwen
                         first = current;
                 }
             }
+
             return mingwens;
         }
     }

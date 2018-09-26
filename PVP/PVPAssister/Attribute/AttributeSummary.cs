@@ -18,6 +18,7 @@ namespace PVPAssister.Mingwen
                 if (row.Count == 2)
                     Add(row[0], row[1], false);
             }
+
             var existingCombinations = Map.Keys.ToList();
             foreach (var existingCombination in existingCombinations)
             {
@@ -38,21 +39,20 @@ namespace PVPAssister.Mingwen
         {
             if (string.IsNullOrEmpty(original)) return original;
 
-            string summary = original;
-            string temp = original;
-            for (int i = 0; i < 6; i++)
+            var summary = original;
+            var temp = original;
+            for (var i = 0; i < 6; i++)
             {
                 if (Map.TryGetValue(temp, out summary))
                 {
                     return summary;
                 }
-                else
-                {
-                    summary = TryGet(temp);
-                    if (summary == temp) break;
-                    else temp = summary;
-                }
+
+                summary = TryGet(temp);
+                if (summary == temp) break;
+                temp = summary;
             }
+
             summary = Sort(summary);
             //if (original != summary)
             //    Add(original, summary);
@@ -64,47 +64,50 @@ namespace PVPAssister.Mingwen
             if (combination.Length < 4)
                 return;
 
-            string reversedCombination = string.Empty;
-            for (int i = 0; i < combination.Length - 1; i += 2)
+            var reversedCombination = string.Empty;
+            for (var i = 0; i < combination.Length - 1; i += 2)
             {
-                string item = combination.Substring(i, 2);
+                var item = combination.Substring(i, 2);
                 Add(existingSummary + item, existingSummary);
                 Add(item + existingSummary, existingSummary);
                 reversedCombination = item + reversedCombination;
             }
+
             Add(reversedCombination, existingSummary);
         }
 
         private static string TryGet(string combination)
         {
-            bool hasDuplicatedItem = false;
-            List<string> items = new List<string>();
-            for (int i = 0; i < combination.Length - 1; i += 2)
+            var hasDuplicatedItem = false;
+            var items = new List<string>();
+            for (var i = 0; i < combination.Length - 1; i += 2)
             {
-                string item = combination.Substring(i, 2);
+                var item = combination.Substring(i, 2);
                 if (!items.Contains(item)) items.Add(item);
                 else hasDuplicatedItem = true;
             }
+
             if (hasDuplicatedItem) combination = string.Join("", items);
 
-            int dimensionCount = items.Count;
-            int[] offsetOfDimensions = new int[dimensionCount];
-            bool completed = false;
+            var dimensionCount = items.Count;
+            var offsetOfDimensions = new int[dimensionCount];
+            var completed = false;
             while (!completed)
             {
-                List<int> indexes = new List<int>();
-                int k = 0;
+                var indexes = new List<int>();
+                var k = 0;
                 for (; !completed && k < dimensionCount;)
                 {
-                    for (int index = offsetOfDimensions[k]; ;)
+                    for (var index = offsetOfDimensions[k];;)
                     {
                         if (index >= dimensionCount)
                         {
-                            for (int j = dimensionCount - 1; j >= k; j--)
+                            for (var j = dimensionCount - 1; j >= k; j--)
                             {
                                 offsetOfDimensions[j] = 0;
                                 if (indexes.Count == j + 1) indexes.RemoveAt(j);
                             }
+
                             if (--k >= 0)
                             {
                                 offsetOfDimensions[k]++;
@@ -116,8 +119,10 @@ namespace PVPAssister.Mingwen
                             {
                                 completed = true;
                             }
+
                             break;
                         }
+
                         if (indexes.Contains(index))
                         {
                             index = ++offsetOfDimensions[k];
@@ -130,30 +135,33 @@ namespace PVPAssister.Mingwen
                         }
                     }
                 }
+
                 if (k == dimensionCount)
                 {
                     ++offsetOfDimensions[k - 1];
-                    string summary = TryGet(items, indexes);
+                    var summary = TryGet(items, indexes);
                     if (!string.IsNullOrEmpty(summary))
                         return summary;
                 }
             }
+
             return combination;
         }
 
         private static string TryGet(List<string> items, List<int> indexes)
         {
-            string summary = string.Empty;
-            for (int itemCount = indexes.Count; itemCount > 1; itemCount--)
+            var summary = string.Empty;
+            for (var itemCount = indexes.Count; itemCount > 1; itemCount--)
             {
-                string combination = string.Empty;
-                for (int i = 0; i < itemCount; i++) combination += items[indexes[i]];
+                var combination = string.Empty;
+                for (var i = 0; i < itemCount; i++) combination += items[indexes[i]];
                 if (Map.TryGetValue(combination, out summary))
                 {
-                    for (int i = itemCount; i < items.Count; i++) summary += items[indexes[i]];
+                    for (var i = itemCount; i < items.Count; i++) summary += items[indexes[i]];
                     break;
                 }
             }
+
             return summary;
         }
 
@@ -161,15 +169,15 @@ namespace PVPAssister.Mingwen
         {
             if (summary.Length < 4)
                 return summary;
-            List<string> items = new List<string>();
-            for (int i = 0; i < summary.Length - 1; i += 2)
+            var items = new List<string>();
+            for (var i = 0; i < summary.Length - 1; i += 2)
             {
                 items.Add(summary.Substring(i, 2));
             }
+
             items.Sort();
-            string orderedSummary = string.Join("", items);
+            var orderedSummary = string.Join("", items);
             return orderedSummary;
         }
-
     }
 }

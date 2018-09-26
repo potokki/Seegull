@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Configuration;
 
 namespace PVPAssister.Mingwen
 {
@@ -18,14 +17,14 @@ namespace PVPAssister.Mingwen
 
         public MingwenInfo Clone()
         {
-            MingwenInfo cloned = new MingwenInfo
-            {
-                Name = Name,
-                Level = Level,
-                Color = Color,
-                Attributes = Attributes,
-                Score = Score,
-            };
+            var cloned = new MingwenInfo
+                {
+                    Name = Name,
+                    Level = Level,
+                    Color = Color,
+                    Attributes = Attributes,
+                    Score = Score,
+                };
             return cloned;
         }
 
@@ -34,15 +33,16 @@ namespace PVPAssister.Mingwen
         public void UpdateScore(AttributeDependency attributeDependency)
         {
             Score = 0;
-            int attibuteCount = 0;
-            bool preferSingleAttribute = false;
+            var attibuteCount = 0;
+            var preferSingleAttribute = false;
             foreach (var attibute in Attributes)
             {
-                int rate = attributeDependency.GetDependencyRate(attibute.Name);
+                var rate = attributeDependency.GetDependencyRate(attibute.Name);
                 Score += rate * attibute.Rate;
                 preferSingleAttribute = rate > RateNormalMax;
                 attibuteCount++;
             }
+
             if (Score > 0)
             {
                 if (attibuteCount == 1)
@@ -51,8 +51,8 @@ namespace PVPAssister.Mingwen
                 }
                 else
                 {
-                    double multipleAttibuteRateBase = 1 + 0.7 * (attibuteCount - 1) / attibuteCount;
-                    double multipleAttibuteRate =
+                    var multipleAttibuteRateBase = 1 + 0.7 * (attibuteCount - 1) / attibuteCount;
+                    var multipleAttibuteRate =
                         multipleAttibuteRateBase * (1 - (multipleAttibuteRateBase - 1) / 1.8);
                     if (multipleAttibuteRate > 1) Score *= multipleAttibuteRate;
                 }
@@ -62,16 +62,16 @@ namespace PVPAssister.Mingwen
         private string GetSummary()
         {
             var query = (from e in Attributes
-                         orderby e.Rate descending
-                         select AttibuteSummary.Get(e.Name)).Take(3);
-            string summary = string.Join("", query);
+                orderby e.Rate descending
+                select AttibuteSummary.Get(e.Name)).Take(3);
+            var summary = string.Join("", query);
             summary = AttibuteSummary.Get(summary);
             return summary;
         }
 
         public override string ToString()
         {
-            string val = $"{Name}-{Level}-{Color}-{Summary}";
+            var val = $"{Name}-{Level}-{Color}-{Summary}";
             return val;
         }
 

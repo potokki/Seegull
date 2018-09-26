@@ -9,6 +9,7 @@ namespace PVPAssister.Mingwen
 
         public const int MaxMingwenLevel = 5;
         public static Dictionary<int, MingwenLevelOverall> Levles = new Dictionary<int, MingwenLevelOverall>();
+
         public static Dictionary<string, MingwenInfo> Elements =
             new Dictionary<string, MingwenInfo>();
 
@@ -27,7 +28,7 @@ namespace PVPAssister.Mingwen
 
         public static MingwenInfo Get(string mingwenName)
         {
-            Elements.TryGetValue(mingwenName, out MingwenInfo mingwenInfo);
+            Elements.TryGetValue(mingwenName, out var mingwenInfo);
             return mingwenInfo?.Clone();
         }
     }

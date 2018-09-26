@@ -20,6 +20,6 @@ namespace PVPAssister.Mingwen
             return string.Equals(Name, other?.Name, StringComparison.Ordinal);
         }
 
-        public override int GetHashCode() => string.IsNullOrEmpty(Name) ? 0 :  Name.GetHashCode();
+        public override int GetHashCode() => string.IsNullOrEmpty(Name) ? 0 : Name.GetHashCode();
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace PVPAssister.Mingwen
@@ -12,7 +11,7 @@ namespace PVPAssister.Mingwen
 
         public void Add(string attributeName, string dependencyRateString)
         {
-            if (!int.TryParse(dependencyRateString, out int dependencyRate))
+            if (!int.TryParse(dependencyRateString, out var dependencyRate))
             {
                 dependencyRate = 0;
             }
@@ -24,22 +23,22 @@ namespace PVPAssister.Mingwen
             Elements[attributeName] = dependencyRate;
         }
 
-
         public int GetDependencyRate(string attibuteName)
         {
-            if (!Elements.TryGetValue(attibuteName, out int rate))
+            if (!Elements.TryGetValue(attibuteName, out var rate))
             {
                 rate = 0;
             }
+
             return rate;
         }
 
         private string GetSummary()
         {
             var query = (from e in Elements
-                         orderby e.Value descending
-                         select AttibuteSummary.Get(e.Key)).Take(3);
-            string summary = string.Join("", query);
+                orderby e.Value descending
+                select AttibuteSummary.Get(e.Key)).Take(3);
+            var summary = string.Join("", query);
             summary = AttibuteSummary.Get(summary);
             return summary;
         }

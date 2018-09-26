@@ -1,6 +1,4 @@
-﻿using PVPAssister.Mingwen;
-
-namespace PVPAssister.Yingxiong
+﻿namespace PVPAssister.Yingxiong
 {
     public class YingxiongType { }
 }

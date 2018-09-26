@@ -24,23 +24,24 @@ namespace PVPAssister.Yingxiong
                     titles = row;
                     continue;
                 }
+
                 Add(titles, row);
             }
         }
 
         private void Add(List<string> titles, List<string> values)
         {
-            string yingxiongName = values[0];
+            var yingxiongName = values[0];
             if (string.IsNullOrEmpty(yingxiongName)) return;
             if (Yingxiongs.ContainsKey(yingxiongName))
                 throw new ArgumentException($"Duplicated {yingxiongName}");
-            var info = new YingxiongInfo { Name = yingxiongName };
+            var info = new YingxiongInfo {Name = yingxiongName};
             Yingxiongs[yingxiongName] = info;
-            for (int i = 1; i < titles.Count && i < values.Count; i++)
+            for (var i = 1; i < titles.Count && i < values.Count; i++)
             {
-                string title = titles[i];
+                var title = titles[i];
                 if (string.IsNullOrEmpty(title)) continue;
-                string valueString = values[i];
+                var valueString = values[i];
                 if (_regTitle.IsMatch(title))
                 {
                     var mingwen = MingwenOverall.Get(valueString);

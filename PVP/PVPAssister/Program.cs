@@ -1,10 +1,10 @@
 ﻿namespace PVPAssister
 {
-    class Program
+    internal class Program
     {
         private static void Main(string[] args)
         {
-            Computer computer = new Computer();
+            var computer = new Computer();
             computer.ComputeMingwensForEachYingxiong();
             computer.Print();
         }

@@ -15,14 +15,14 @@ namespace PVPAssister
         //private static readonly string OutputFileName =
         //    $"Result_{DateTime.Now.ToShortDateString().Replace("/", "_").Replace(" ", "")}.csv";
 
-        private YingxiongOverall _yingxiong = new YingxiongOverall();
+        private readonly YingxiongOverall _yingxiong = new YingxiongOverall();
 
         public void ComputeMingwensForEachYingxiong()
         {
             var yingxiongs = _yingxiong.Yingxiongs.Values.Where(y => y.HasSet).ToList();
             foreach (var yingxiong in yingxiongs)
             {
-                for (int level = 4; level < 6; level++)
+                for (var level = 4; level < 6; level++)
                     yingxiong.Mingwens[level] = MingwenOverall.Levles[level].SuggestedMingwenUnit(yingxiong.AttributeDependency);
             }
 
@@ -35,7 +35,7 @@ namespace PVPAssister
 
         public void Print()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.AppendLine(YingxiongInfo.OutputTitle);
             foreach (var yingxiong in _yingxiong.Yingxiongs.Values)
             {
