@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PVPAssister.Mingwen
@@ -7,6 +8,7 @@ namespace PVPAssister.Mingwen
     {
         public Dictionary<string, int> Elements = new Dictionary<string, int>();
         public string Summary => GetSummary();
+        internal bool HasSet { get; private set; }
 
         public void Add(string attributeName, string dependencyRateString)
         {
@@ -14,8 +16,14 @@ namespace PVPAssister.Mingwen
             {
                 dependencyRate = 0;
             }
+            else
+            {
+                HasSet = true;
+            }
+
             Elements[attributeName] = dependencyRate;
         }
+
 
         public int GetDependencyRate(string attibuteName)
         {

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace PVPAssister.Mingwen
 {
-    public class MingwenUnit
+    public class MingwenUnit : IComparable
     {
         public int Level { get; }
 
@@ -18,11 +17,11 @@ namespace PVPAssister.Mingwen
 
         public string Summary => GetSummary();
 
-        public MingwenUnit(int level) { Level = level; }
+        public MingwenUnit(int level) => Level = level;
 
         public override string ToString()
         {
-            string str = string.Empty;
+            var str = string.Empty;
             str += string.Join("|", Elements[MingwenColor.蓝色].Select(m => m.Name));
             str += "," + string.Join("|", Elements[MingwenColor.绿色].Select(m => m.Name));
             str += "," + string.Join("|", Elements[MingwenColor.红色].Select(m => m.Name));
@@ -31,7 +30,7 @@ namespace PVPAssister.Mingwen
 
         public string ToDetailedString()
         {
-            string str = Summary;
+            var str = Summary;
             str += "," + string.Join("|", Elements[MingwenColor.蓝色].Select(m => m.Name + m.Score.ToString("N1")));
             str += "," + string.Join("|", Elements[MingwenColor.绿色].Select(m => m.Name + m.Score.ToString("N1")));
             str += "," + string.Join("|", Elements[MingwenColor.红色].Select(m => m.Name + m.Score.ToString("N1")));
@@ -40,11 +39,11 @@ namespace PVPAssister.Mingwen
 
         private string GetSummary()
         {
-            List<string> summaries = new List<string>();
-            for (int i = 0; i < 5; i++)
+            var summaries = new List<string>();
+            for (var i = 0; i < 5; i++)
             {
-                string summary = string.Empty;
-                bool hasItemForI = false;
+                var summary = string.Empty;
+                var hasItemForI = false;
                 foreach (var e in Elements)
                 {
                     if (e.Value.Count > i)
@@ -60,8 +59,54 @@ namespace PVPAssister.Mingwen
                 if (hasItemForI) summaries.Add(AttibuteSummary.Get(summary));
                 else break;
             }
-            string summarySum = string.Join("|", summaries);
+            var summarySum = string.Join("|", summaries);
             return summarySum;
+        }
+
+        public int CompareTo(object obj)
+        {
+            var other = obj as MingwenUnit;
+            var diff = ComparePerColor(MingwenColor.蓝色, this, other)
+                + ComparePerColor(MingwenColor.绿色, this, other)
+                + ComparePerColor(MingwenColor.红色, this, other);
+            return diff;
+        }
+
+        private int ComparePerColor(MingwenColor color, MingwenUnit current, MingwenUnit other) => ComparePerColor(current.Elements[color], other.Elements[color]);
+
+        public int ComparePerColor(IList<MingwenInfo> mingwen1, IList<MingwenInfo> mingwen2)
+        {
+            if (!mingwen1.Any())
+                return 5;
+
+            if (!mingwen2.Any())
+                return 5;
+
+            if (mingwen2.Contains(mingwen1.First()))
+                return 0;
+
+            if (mingwen1.Contains(mingwen2.First()))
+                return 0;
+
+            var diff = 0;
+            var i = 0;
+            var existedIn2 = false;
+            foreach (var attribute in mingwen1)
+            {
+                var j = mingwen2.IndexOf(attribute);
+                if (j >= 0)
+                {
+                    existedIn2 = true;
+                    diff += i  * 5 + j * 2;
+                }
+
+                i++;
+            }
+
+            if (!existedIn2)
+                diff += 7;
+
+            return diff;
         }
     }
 }

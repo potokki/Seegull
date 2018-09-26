@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Configuration;
 
@@ -73,5 +74,13 @@ namespace PVPAssister.Mingwen
             string val = $"{Name}-{Level}-{Color}-{Summary}";
             return val;
         }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as MingwenInfo;
+            return string.Equals(Name, other.Name, StringComparison.Ordinal);
+        }
+
+        public override int GetHashCode() => string.IsNullOrEmpty(Name) ? 0 : Name.GetHashCode();
     }
 }

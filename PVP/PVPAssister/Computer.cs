@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using PVPAssister.Mingwen;
 using PVPAssister.Yingxiong;
@@ -18,10 +19,17 @@ namespace PVPAssister
 
         public void ComputeMingwensForEachYingxiong()
         {
-            foreach (var yingxiong in _yingxiong.Yingxiongs.Values)
+            var yingxiongs = _yingxiong.Yingxiongs.Values.Where(y => y.HasSet).ToList();
+            foreach (var yingxiong in yingxiongs)
             {
                 for (int level = 4; level < 6; level++)
                     yingxiong.Mingwens[level] = MingwenOverall.Levles[level].SuggestedMingwenUnit(yingxiong.AttributeDependency);
+            }
+
+            foreach (var yingxiong in yingxiongs)
+            {
+                var similarYingxiongs = yingxiongs.OrderBy(y => yingxiong.CompareTo(y));
+                yingxiong.SimilarYingxiongs.AddRange(similarYingxiongs.TakeWhile(y => yingxiong.CompareTo(y) < 9));
             }
         }
 
