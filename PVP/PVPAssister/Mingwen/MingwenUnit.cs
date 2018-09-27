@@ -80,10 +80,10 @@ namespace PVPAssister.Mingwen
         public int ComparePerColor(IList<MingwenInfo> mingwen1, IList<MingwenInfo> mingwen2)
         {
             if (!mingwen1.Any())
-                return 5;
+                return 4;
 
             if (!mingwen2.Any())
-                return 5;
+                return 4;
 
             if (mingwen2.Contains(mingwen1.First()))
                 return 0;
