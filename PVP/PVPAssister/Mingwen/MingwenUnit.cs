@@ -28,10 +28,10 @@ namespace PVPAssister.Mingwen
             return str;
         }
 
-        public string ToDetailedString()
+        public string ToDetailedString(bool needSummary = true)
         {
-            var str = Summary;
-            str += "," + string.Join("|", Elements[MingwenColor.蓝色].Select(m => m.Name + m.Score.ToString("N1")));
+            var str = needSummary ? Summary + "," : string.Empty;
+            str += string.Join("|", Elements[MingwenColor.蓝色].Select(m => m.Name + m.Score.ToString("N1")));
             str += "," + string.Join("|", Elements[MingwenColor.绿色].Select(m => m.Name + m.Score.ToString("N1")));
             str += "," + string.Join("|", Elements[MingwenColor.红色].Select(m => m.Name + m.Score.ToString("N1")));
             return str;
@@ -77,30 +77,42 @@ namespace PVPAssister.Mingwen
         private int ComparePerColor(MingwenColor color, MingwenUnit current, MingwenUnit other) =>
             ComparePerColor(current.Elements[color], other.Elements[color]);
 
-        public int ComparePerColor(IList<MingwenInfo> mingwen1, IList<MingwenInfo> mingwen2)
+        public int ComparePerColor(IList<MingwenInfo> mingwens1, IList<MingwenInfo> mingwens2)
         {
-            if (!mingwen1.Any())
+            if (!mingwens1.Any())
                 return 4;
 
-            if (!mingwen2.Any())
+            if (!mingwens2.Any())
                 return 4;
 
-            if (mingwen2.Contains(mingwen1.First()))
+            if (mingwens2.Contains(mingwens1.First()))
                 return 0;
 
-            if (mingwen1.Contains(mingwen2.First()))
+            if (mingwens1.Contains(mingwens2.First()))
                 return 0;
 
             var diff = 0;
             var i = 0;
             var existedIn2 = false;
-            foreach (var attribute in mingwen1)
+            foreach (var mingwen1 in mingwens1)
             {
-                var j = mingwen2.IndexOf(attribute);
-                if (j >= 0)
+                var j = 0;
+                foreach (var mingwen2 in mingwens2)
                 {
-                    existedIn2 = true;
-                    diff += i * 5 + j * 2;
+                    var diffRate = 0;
+                    if (mingwen2.Equals(mingwen1))
+                        diffRate = 1;
+                    else if (mingwen1.HasSameAttribute(mingwen2))
+                    {
+                        diffRate = 3;
+                        j++;
+                    }
+                    if(diffRate > 0)
+                    {
+                        existedIn2 = true;
+                        diff += i * 5 + j * diffRate * 2;
+                    }
+                    j++;
                 }
 
                 i++;

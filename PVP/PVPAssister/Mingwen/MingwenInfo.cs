@@ -47,13 +47,13 @@ namespace PVPAssister.Mingwen
             {
                 if (attibuteCount == 1)
                 {
-                    if (preferSingleAttribute) Score *= 1.3;
+                    if (preferSingleAttribute) Score *= 1.2;
                 }
                 else
                 {
                     var multipleAttibuteRateBase = 1 + 0.7 * (attibuteCount - 1) / attibuteCount;
                     var multipleAttibuteRate =
-                        multipleAttibuteRateBase * (1 - (multipleAttibuteRateBase - 1) / 1.8);
+                        multipleAttibuteRateBase * (1 - (multipleAttibuteRateBase - 1) / 1.9);
                     if (multipleAttibuteRate > 1) Score *= multipleAttibuteRate;
                 }
             }
@@ -82,5 +82,13 @@ namespace PVPAssister.Mingwen
         }
 
         public override int GetHashCode() => string.IsNullOrEmpty(Name) ? 0 : Name.GetHashCode();
+
+        public bool HasSameAttribute(MingwenInfo other)
+        {
+            var hasSameAttribute = null != other
+                && (other.Attributes.Any(o => Attributes.Contains(o))
+                    || Attributes.Any(a => other.Attributes.Contains(a)));
+            return hasSameAttribute;
+        }
     }
 }
