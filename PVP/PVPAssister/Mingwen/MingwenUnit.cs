@@ -109,7 +109,7 @@ namespace PVPAssister.Mingwen
                     if (jAdjust >= 0)
                     {
                         existedIn2 = true;
-                        diff += i * 5 + (j + jAdjust) * 2;
+                        diff += i * 4 + (j + jAdjust) * 2;
                     }
                     j++;
                 }
