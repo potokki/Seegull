@@ -99,18 +99,17 @@ namespace PVPAssister.Mingwen
                 var j = 0;
                 foreach (var mingwen2 in mingwens2)
                 {
-                    var diffRate = 0;
+                    var jAdjust = -1;
                     if (mingwen2.Equals(mingwen1))
-                        diffRate = 1;
+                        jAdjust = 0;
                     else if (mingwen1.HasSameAttribute(mingwen2))
                     {
-                        diffRate = 3;
-                        j++;
+                        jAdjust = 2;
                     }
-                    if(diffRate > 0)
+                    if (jAdjust >= 0)
                     {
                         existedIn2 = true;
-                        diff += i * 5 + j * diffRate * 2;
+                        diff += i * 5 + (j + jAdjust) * 2;
                     }
                     j++;
                 }
