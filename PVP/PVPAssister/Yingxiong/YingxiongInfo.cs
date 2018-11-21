@@ -15,7 +15,7 @@ namespace PVPAssister.Yingxiong
         public bool HasSet => AttributeDependency.HasSet;
 
         public const string OutputTitle =
-            "Yingxiong,5-类型,5-B,5-G,5-R,4-B,4-G,4-R,相似";
+            "Yingxiong,5-类型,5-B,5-G,5-R,相似";
 
         public YingxiongInfo()
         {
@@ -32,7 +32,7 @@ namespace PVPAssister.Yingxiong
         public override string ToString()
         {
             var str =
-                $"{Name},{Mingwens[5].ToDetailedString()},{Mingwens[4].ToDetailedString(false)},{string.Join("|", SimilarYingxiongs.Select(s => s.Name))}";
+                $"{Name},{Mingwens[5].ToDetailedString()},{string.Join("|", SimilarYingxiongs.Select(s => s.Name))}";
 
             return str;
         }
