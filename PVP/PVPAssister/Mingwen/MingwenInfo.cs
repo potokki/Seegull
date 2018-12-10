@@ -36,13 +36,13 @@ namespace PVPAssister.Mingwen
             Score = 0;
             var attibuteCount = 0;
             var preferSingleAttribute = false;
-            var preferSingleAttributeRate = 1.2;
+            double preferSingleAttributeRate = 1;
             foreach (var attibute in Attributes)
             {
                 var rate = attributeDependency.GetDependencyRate(attibute.Name);
                 Score += rate * attibute.Rate;
                 preferSingleAttribute = rate > RateNormalMax;
-                if (rate > RateNormalEx) preferSingleAttributeRate = 1.3;
+                if (rate > RateNormalEx) preferSingleAttributeRate = 1.2;
                 attibuteCount++;
             }
 
