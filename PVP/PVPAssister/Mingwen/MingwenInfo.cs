@@ -14,6 +14,7 @@ namespace PVPAssister.Mingwen
         public double Score { get; private set; }
 
         private const int RateNormalMax = 10;
+        private const int RateNormalEx = 11;
 
         public MingwenInfo Clone()
         {
@@ -35,11 +36,13 @@ namespace PVPAssister.Mingwen
             Score = 0;
             var attibuteCount = 0;
             var preferSingleAttribute = false;
+            var preferSingleAttributeRate = 1.2;
             foreach (var attibute in Attributes)
             {
                 var rate = attributeDependency.GetDependencyRate(attibute.Name);
                 Score += rate * attibute.Rate;
                 preferSingleAttribute = rate > RateNormalMax;
+                if (rate > RateNormalEx) preferSingleAttributeRate = 1.3;
                 attibuteCount++;
             }
 
@@ -47,7 +50,7 @@ namespace PVPAssister.Mingwen
             {
                 if (attibuteCount == 1)
                 {
-                    if (preferSingleAttribute) Score *= 1.2;
+                    if (preferSingleAttribute) Score *= preferSingleAttributeRate;
                 }
                 else
                 {
