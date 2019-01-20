@@ -12,7 +12,7 @@ namespace PVPAssister.Mingwen
         private const int ScoreAdvanced = 14;
         private const double ScoreDiffLess = 0.2;
         private const double ScoreDiffMore = 0.4;
-        private const int MaxMingwenPerUnit = 2;
+        private const int MaxMingwenPerUnit = 3;
         public int Level;
 
         public Dictionary<string, MingwenInfo> Elements =
